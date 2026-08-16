@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloombubs — Parent App Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="eyebrow">Bloombubs · Parent app</div>
+    <h1>Parent App Mockups</h1>
+    <p>
+      Clickable HTML mockups of the Bloombubs parent app. Every screen below is live HTML —
+      open the walkthrough to click through the flow exactly as it behaves on a phone,
+      or click any screen to jump straight to it.
+    </p>
+    <div class="header-actions">
+      <a class="btn-link" href="prototype.html?screen=language">Open walkthrough</a>
+      <a class="btn-link ghost" href="screens/home.html">Open Today screen full size</a>
+    </div>
+  </div>
+</header>
+
+<main class="gallery-wrap">
+  <div class="group-title">Onboarding</div>
+  <div class="grid" id="grid-onboarding"></div>
+
+  <div class="group-title">Home</div>
+  <div class="grid" id="grid-home"></div>
+
+  <div class="group-title">Quick logging</div>
+  <div class="grid" id="grid-logging"></div>
+
+  <div class="group-title">Development</div>
+  <div class="grid" id="grid-development"></div>
+</main>
+
+<script src="assets/screens.js"></script>
+<script>
+  for (const group of SCREEN_GROUPS) {
+    const grid = document.getElementById('grid-' + group.id);
+    for (const screen of group.screens) {
+      const link = document.createElement('a');
+      link.className = 'thumb';
+      link.href = 'prototype.html?screen=' + screen.id;
+      link.innerHTML =
+        '<div class="thumb-frame"><div class="device"><div class="device-screen">' +
+        '<iframe loading="lazy" title="' + screen.title + '" src="screens/' + screen.id + '.html"></iframe>' +
+        '</div></div></div>' +
+        '<div class="thumb-label">' + screen.title + '</div>' +
+        '<div class="thumb-sub">' + screen.note + '</div>';
+      grid.appendChild(link);
+    }
+  }
+</script>
+</body>
+</html>

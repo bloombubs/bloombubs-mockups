@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Growth chart — Bloombubs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/app.css">
+</head>
+<body>
+<div class="screen" style="position:relative">
+  <div class="topbar">
+    <a class="icon-btn" href="development.html" aria-label="Back">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    </a>
+  </div>
+
+  <div class="screen-body" style="padding-bottom:100px">
+    <div class="metric-row">
+      <div class="card" style="padding:18px">
+        <div class="label-caps">Weight</div>
+        <div class="metric-value">2.0 <span class="metric-unit">kg</span></div>
+      </div>
+      <div class="card" style="padding:18px">
+        <div class="label-caps">Height</div>
+        <div class="metric-value">80 <span class="metric-unit">cm</span></div>
+      </div>
+    </div>
+
+    <div class="segmented">
+      <button class="segment is-active">Weight</button>
+      <button class="segment">Height</button>
+      <button class="segment">Head</button>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="card-head-title">Growth Curve</span>
+        <span class="card-head-note">WHO + SL Standard</span>
+      </div>
+
+      <svg viewBox="0 0 340 200" width="100%" height="190" role="img" aria-label="Weight growth curve chart">
+        <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979">
+          <text x="34" y="14" text-anchor="end">kg</text>
+          <text x="34" y="24">9.8</text>
+          <text x="34" y="74">7.2</text>
+          <text x="34" y="124">4.6</text>
+          <text x="34" y="174">2.0</text>
+        </g>
+        <g stroke="#e1e3e4" stroke-width="1">
+          <line x1="40" y1="20" x2="330" y2="20"/>
+          <line x1="40" y1="70" x2="330" y2="70"/>
+          <line x1="40" y1="120" x2="330" y2="120"/>
+          <line x1="40" y1="170" x2="330" y2="170"/>
+        </g>
+
+        <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26
+                 L320,78 C300,80 260,86 229,93 C205,98 170,108 137,118 C105,128 80,142 45,160 Z"
+              fill="#e9eaeb" opacity="0.85"/>
+        <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26"
+              fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+        <path d="M45,160 C80,142 105,128 137,118 C170,108 205,98 229,93 C260,86 300,80 320,78"
+              fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+        <circle cx="47" cy="167" r="5" fill="#c0392b"/>
+
+        <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979" text-anchor="middle">
+          <text x="45" y="190">0mo</text>
+          <text x="137" y="190">2mo</text>
+          <text x="229" y="190">4mo</text>
+          <text x="320" y="190">6mo</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="tint-card teal" style="margin-top:16px">
+      <div class="insight">
+        <span class="insight-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a6 6 0 0 0-3.6 10.8c.6.5.9 1.2 1 1.9l.1 1.3h5l.1-1.3c.1-.7.4-1.4 1-1.9A6 6 0 0 0 12 2z"/></svg>
+        </span>
+        <div>
+          <div class="insight-title">Healthy Growth Curve</div>
+          <div class="insight-text">Siro's weight gain follows the WHO growth curve. Great feeding routine!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tint-card amber">
+      <div class="insight">
+        <span class="insight-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M8 2v4"/><path d="M16 2v4"/><path d="M3 10h18"/></svg>
+        </span>
+        <div>
+          <div class="insight-title">Upcoming Milestone</div>
+          <div class="insight-text">Growth spurts are expected around week 6 — expect extra hunger soon.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="mock-note">Static mockup for review — data shown is sample content.</p>
+  </div>
+
+  <a class="fab" href="log-growth.html" aria-label="Add growth record" style="bottom:32px">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walkthrough — Bloombubs Parent App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="eyebrow">Bloombubs · Parent app</div>
+    <h1>Walkthrough</h1>
+    <p>The phone below is live — tap buttons, quick actions and the bottom tabs to move between screens.</p>
+    <div class="header-actions">
+      <a class="btn-link ghost" href="index.html">← All screens</a>
+    </div>
+  </div>
+</header>
+
+<main class="viewer">
+  <aside class="viewer-side">
+    <h2>Screens</h2>
+    <p>Jump to any screen, or navigate inside the phone.</p>
+    <nav id="side-nav"></nav>
+  </aside>
+
+  <div class="viewer-stage">
+    <div class="device">
+      <div class="device-screen">
+        <iframe id="stage" title="Bloombubs parent app screen"></iframe>
+      </div>
+    </div>
+    <div class="viewer-caption" id="caption"></div>
+  </div>
+</main>
+
+<script src="assets/screens.js"></script>
+<script>
+  const stage = document.getElementById('stage');
+  const caption = document.getElementById('caption');
+  const nav = document.getElementById('side-nav');
+
+  const requested = new URLSearchParams(location.search).get('screen');
+  const start = SCREEN_INDEX[requested] ? requested : 'language';
+
+  for (const group of SCREEN_GROUPS) {
+    const heading = document.createElement('div');
+    heading.className = 'side-group';
+    heading.textContent = group.title;
+    nav.appendChild(heading);
+
+    for (const screen of group.screens) {
+      const item = document.createElement('a');
+      item.className = 'side-link';
+      item.dataset.screen = screen.id;
+      item.textContent = screen.title;
+      item.href = '?screen=' + screen.id;
+      item.addEventListener('click', (event) => {
+        event.preventDefault();
+        show(screen.id);
+      });
+      nav.appendChild(item);
+    }
+  }
+
+  function show(id) {
+    stage.src = 'screens/' + id + '.html';
+    markActive(id);
+    history.replaceState(null, '', '?screen=' + id);
+  }
+
+  function markActive(id) {
+    for (const item of nav.querySelectorAll('.side-link')) {
+      item.classList.toggle('is-active', item.dataset.screen === id);
+    }
+    const screen = SCREEN_INDEX[id];
+    caption.textContent = screen ? screen.title + ' — ' + screen.note : '';
+  }
+
+  // Keep the sidebar in sync when navigation happens inside the phone.
+  stage.addEventListener('load', () => {
+    const path = stage.contentWindow.location.pathname;
+    const id = path.slice(path.lastIndexOf('/') + 1).replace('.html', '');
+    if (SCREEN_INDEX[id]) markActive(id);
+  });
+
+  show(start);
+</script>
+</body>
+</html>

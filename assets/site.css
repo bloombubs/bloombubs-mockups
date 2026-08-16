@@ -1,0 +1,232 @@
+/* Bloombubs mockups — site chrome (gallery + prototype viewer). */
+
+:root {
+  --ink: #101314;
+  --ink-soft: #5c6566;
+  --page: #eef0f1;
+  --panel: #ffffff;
+  --teal: #356668;
+  --line: #dcdfe0;
+  --bezel: #1b1e1f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.site-header {
+  padding: 40px 32px 28px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap,
+.gallery-wrap { max-width: 1240px; margin: 0 auto; }
+
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.site-header h1 {
+  margin: 10px 0 0;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+}
+
+.site-header p {
+  margin: 10px 0 0;
+  max-width: 720px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--ink-soft);
+}
+
+.header-actions { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-link.ghost {
+  background: transparent;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+}
+
+/* ---------- Device frame ---------- */
+
+.device {
+  width: 390px;
+  height: 844px;
+  padding: 10px;
+  border-radius: 46px;
+  background: var(--bezel);
+  box-shadow: 0 18px 40px rgba(16, 19, 20, 0.22);
+}
+
+.device-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.device-screen iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- Gallery ---------- */
+
+.gallery-wrap { padding: 36px 32px 64px; }
+
+.group-title {
+  margin: 36px 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 32px 24px;
+  margin-top: 18px;
+}
+
+.thumb { display: block; }
+
+.thumb-frame {
+  position: relative;
+  width: 234px;
+  height: 507px;
+  overflow: hidden;
+}
+
+.thumb-frame .device {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0.6);
+  transform-origin: top left;
+}
+
+.thumb-frame iframe { pointer-events: none; }
+
+.thumb-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+}
+
+.thumb:hover .thumb-frame::after { box-shadow: 0 0 0 3px var(--teal); }
+
+.thumb-label {
+  margin-top: 12px;
+  width: 234px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.thumb-sub {
+  margin-top: 2px;
+  width: 234px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--ink-soft);
+}
+
+/* ---------- Prototype viewer ---------- */
+
+.viewer {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.viewer-side {
+  flex: 0 0 260px;
+  padding: 20px;
+  background: var(--panel);
+  border-radius: 20px;
+  border: 1px solid var(--line);
+}
+
+.viewer-side h2 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.viewer-side p {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 19px;
+  color: var(--ink-soft);
+}
+
+.side-link {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.side-link:hover { background: #f2f4f4; color: var(--ink); }
+
+.side-link.is-active {
+  background: #e7f0ef;
+  color: var(--teal);
+  font-weight: 600;
+}
+
+.side-group {
+  margin: 16px 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: #9aa1a1;
+}
+
+.viewer-stage { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
+.viewer-caption { font-size: 14px; color: var(--ink-soft); }
+
+@media (max-width: 900px) {
+  .viewer { flex-direction: column; align-items: center; }
+  .viewer-side { flex: 1 1 auto; width: 100%; max-width: 390px; }
+  .device { transform: scale(0.85); transform-origin: top center; }
+}
