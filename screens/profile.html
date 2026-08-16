@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your profile — Bloombubs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/app.css">
+</head>
+<body>
+<div class="screen">
+  <div class="screen-body" style="padding-top:40px">
+    <h1 class="headline">Create your profile</h1>
+    <p class="body-md" style="font-size:17px;margin-top:10px">Tell us a little about you.</p>
+
+    <div style="margin-top:26px">
+      <div class="field">
+        <div class="label-caps">Your name</div>
+        <input class="input is-focused" placeholder="e.g. Amara" aria-label="Your name" data-gate>
+      </div>
+      <div class="field">
+        <div class="label-caps">Email <span class="muted">Optional</span></div>
+        <input class="input" type="email" placeholder="e.g. amara@example.com" aria-label="Email">
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-footer">
+    <a class="btn btn-primary is-disabled" href="add-baby.html" data-gate-hint="Enter your name to continue.">
+      Continue
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</div>
+<script src="../assets/interactions.js" defer></script>
+</body>
+</html>

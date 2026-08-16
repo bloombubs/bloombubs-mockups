@@ -90,8 +90,8 @@
 
     <div class="card" style="display:flex;align-items:center;justify-content:space-between;margin-top:18px">
       <div>
-        <div class="stat-value">8h ago</div>
-        <div class="stat-label">Left · 1m</div>
+        <div class="stat-value" data-last="breastfeed">8h ago</div>
+        <div class="stat-label" data-last-detail="breastfeed">Left · 1m</div>
       </div>
       <span class="ring">
         <svg viewBox="0 0 48 48" width="52" height="52" fill="none">
@@ -104,12 +104,12 @@
 
     <div class="stat-row">
       <div class="card">
-        <div class="stat-value plain">—</div>
+        <div class="stat-value plain" data-total="bottle">—</div>
         <div class="stat-label">Total today</div>
       </div>
       <div class="card">
-        <div class="stat-value" style="font-size:24px">8h 2m ago</div>
-        <div class="stat-label">Wet</div>
+        <div class="stat-value" style="font-size:24px" data-last="diaper">8h 2m ago</div>
+        <div class="stat-label" data-last-detail="diaper">Wet</div>
       </div>
     </div>
 
@@ -125,7 +125,10 @@
       </div>
     </div>
 
-    <p class="mock-note">Static mockup for review — data shown is sample content.</p>
+    <p class="mock-note">
+      Mockup for review — sample data.
+      <a href="#" data-reset style="text-decoration:underline">Reset demo data</a>
+    </p>
   </div>
 
   <nav class="bottom-nav">
@@ -139,5 +142,6 @@
     </a>
   </nav>
 </div>
+<script src="../assets/interactions.js" defer></script>
 </body>
 </html>

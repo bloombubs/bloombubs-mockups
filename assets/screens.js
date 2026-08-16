@@ -7,6 +7,8 @@ const SCREEN_GROUPS = [
     screens: [
       { id: 'language', title: 'Language', note: 'First launch — English, Sinhala or Tamil.' },
       { id: 'phone', title: 'Phone number', note: 'WhatsApp verification code is sent to this number.' },
+      { id: 'profile', title: 'Create profile', note: 'Parent name, with email optional.' },
+      { id: 'add-baby', title: 'Add baby', note: 'Photo, gender, name, birthday and premature flag.' },
     ],
   },
   {

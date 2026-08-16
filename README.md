@@ -16,13 +16,18 @@ to GitHub Pages.
 | `assets/app.css` | Screen styles, using the parent app's design tokens |
 | `assets/site.css` | Gallery and walkthrough chrome (phone frame, layout) |
 | `assets/screens.js` | Screen manifest shared by the gallery and walkthrough |
+| `assets/interactions.js` | Makes the controls behave — timers, steppers, toggles, Save |
 
 The mockups are clickable: buttons, back arrows, quick actions and the bottom tabs all
 navigate to the matching screen, so the client can click through the flow.
 
+The logging controls also work: timers run, steppers count, options select, and Save is
+disabled until there is something to save. A saved entry is written to `localStorage` and
+shown back on the Today screen — "Reset demo data" there clears it.
+
 ## Parent app — screens covered
 
-- **Onboarding** — language selection, phone number entry
+- **Onboarding** — language selection, phone number entry, parent profile, add baby
 - **Home** — Today dashboard with quick actions, latest activity and insight
 - **Quick logging** — breastfeed, bottle, diaper, sleep, solids, pumping, growth,
   symptom, milestone, note
@@ -49,6 +54,7 @@ python -m http.server 8080
 
 ## Adding a screen
 
-1. Copy an existing file in `screens/` and edit the content.
+1. Copy an existing file in `screens/` and edit the content — keep the
+   `assets/interactions.js` script tag so the controls stay live.
 2. Add an entry to `SCREEN_GROUPS` in `assets/screens.js` so it appears in the gallery
    and walkthrough.
