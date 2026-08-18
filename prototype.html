@@ -38,8 +38,8 @@
   </div>
 </main>
 
-<script src="assets/screens.js"></script>
 <script>
+function build() {
   const stage = document.getElementById('stage');
   const caption = document.getElementById('caption');
   const nav = document.getElementById('side-nav');
@@ -68,7 +68,7 @@
   }
 
   function show(id) {
-    stage.src = 'screens/' + id + '.html';
+    stage.src = 'screens/' + id + '.html' + VERSION;
     markActive(id);
     history.replaceState(null, '', '?screen=' + id);
   }
@@ -89,6 +89,13 @@
   });
 
   show(start);
+}
+// The loader runs last, so build() is defined before the manifest can finish.
+const VERSION = '?v=' + Date.now();
+const manifest = document.createElement('script');
+manifest.src = 'assets/screens.js' + VERSION;
+manifest.onload = build;
+document.head.appendChild(manifest);
 </script>
 </body>
 </html>

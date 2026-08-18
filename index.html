@@ -26,37 +26,43 @@
   </div>
 </header>
 
-<main class="gallery-wrap">
-  <div class="group-title">Onboarding</div>
-  <div class="grid" id="grid-onboarding"></div>
+<main class="gallery-wrap" id="gallery"></main>
 
-  <div class="group-title">Home</div>
-  <div class="grid" id="grid-home"></div>
-
-  <div class="group-title">Quick logging</div>
-  <div class="grid" id="grid-logging"></div>
-
-  <div class="group-title">Development</div>
-  <div class="grid" id="grid-development"></div>
-</main>
-
-<script src="assets/screens.js"></script>
 <script>
+function build() {
+  const gallery = document.getElementById('gallery');
+
   for (const group of SCREEN_GROUPS) {
-    const grid = document.getElementById('grid-' + group.id);
+    // Headings and grids come from the manifest, so a new group needs no edit here.
+    const heading = document.createElement('div');
+    heading.className = 'group-title';
+    heading.textContent = group.title;
+    gallery.appendChild(heading);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    gallery.appendChild(grid);
+
     for (const screen of group.screens) {
       const link = document.createElement('a');
       link.className = 'thumb';
       link.href = 'prototype.html?screen=' + screen.id;
       link.innerHTML =
         '<div class="thumb-frame"><div class="device"><div class="device-screen">' +
-        '<iframe loading="lazy" title="' + screen.title + '" src="screens/' + screen.id + '.html"></iframe>' +
+        '<iframe loading="lazy" title="' + screen.title + '" src="screens/' + screen.id + '.html' + VERSION + '"></iframe>' +
         '</div></div></div>' +
         '<div class="thumb-label">' + screen.title + '</div>' +
         '<div class="thumb-sub">' + screen.note + '</div>';
       grid.appendChild(link);
     }
   }
+}
+// The loader runs last, so build() is defined before the manifest can finish.
+const VERSION = '?v=' + Date.now();
+const manifest = document.createElement('script');
+manifest.src = 'assets/screens.js' + VERSION;
+manifest.onload = build;
+document.head.appendChild(manifest);
 </script>
 </body>
 </html>
