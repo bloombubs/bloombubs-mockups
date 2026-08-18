@@ -582,7 +582,6 @@ h2.title {
 .day-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   margin-top: 22px;
   color: var(--on-surface-variant);
 }
@@ -593,8 +592,6 @@ h2.title {
   border-bottom: 1px solid var(--outline-variant);
   padding-bottom: 4px;
 }
-
-.day-icons { display: flex; gap: 16px; }
 
 .timeline { margin-top: 14px; }
 
