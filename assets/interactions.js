@@ -265,6 +265,40 @@
     });
   }
 
+  // A screen opened from somewhere other than its usual place in the flow — the
+  // baby form reached from Account, say — goes back where it came from.
+  function setUpReturnTo() {
+    const from = new URLSearchParams(location.search).get('from');
+    if (!from) return;
+    const target = from + '.html';
+
+    const back = document.querySelector('.topbar .icon-btn');
+    if (back) back.setAttribute('href', target);
+    const primary = document.querySelector('.screen-footer .btn-primary');
+    if (primary) primary.setAttribute('href', target);
+  }
+
+  // Editing a baby from Account opens the same form with that baby loaded.
+  function setUpBabyForm() {
+    const params = new URLSearchParams(location.search);
+    const name = params.get('baby');
+    const field = document.querySelector('[data-count-input]');
+    if (!name || !field) return;
+
+    field.value = name;
+    const counter = document.querySelector('[data-count]');
+    if (counter) counter.textContent = name.length;
+
+    const title = document.querySelector('.topbar-title');
+    if (title) title.textContent = 'Edit baby';
+
+    const gender = params.get('gender');
+    if (gender) {
+      const option = document.querySelector('.gender-option[data-theme="' + gender + '"]');
+      if (option) afterSetup.push(() => option.click());
+    }
+  }
+
   // The account screen's ⋮ menu, dismissed by tapping anywhere off it.
   function setUpMenu() {
     const toggle = document.querySelector('[data-menu-toggle]');
@@ -826,6 +860,8 @@
   setUpTimers();
   setUpExtras();
   setUpMenu();
+  setUpReturnTo();
+  setUpBabyForm();
   afterSetup.forEach((task) => task());
   notifyChange();
 })();
