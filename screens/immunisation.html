@@ -19,89 +19,122 @@
 
   <div class="screen-body">
     <h1 class="headline" style="margin-top:0">Immunisation</h1>
-    <p class="body-md" style="font-size:17px">Sri Lanka national vaccination schedule.</p>
+    <p class="body-md" style="font-size:17px">Sri Lanka national vaccination schedule. Switch one on once it has been given, then set the date.</p>
 
     <div class="section-label">At birth</div>
     <div class="vax-group">
-      <div class="vax-row">
-        <span class="vax-dot is-given">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
-        </span>
+      <div class="vax-row is-given">
         <span class="vax-main">
           <span class="vax-name">BCG</span>
-          <span class="vax-sub" style="display:block">Aug 15, 2026</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" value="Aug 15, 2026" aria-label="Date BCG was given">
+          </span>
         </span>
-        <span class="status given">Given</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <button class="switch is-on" type="button" aria-label="Mark BCG as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
         <span class="vax-main">
           <span class="vax-name">BCG · 2nd</span>
-          <span class="vax-sub" style="display:block">If no scar even at 6 months</span>
+          <span class="vax-note">If no scar even at 6 months</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date BCG 2nd was given">
+          </span>
         </span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <button class="switch" type="button" aria-label="Mark BCG 2nd as given"></button>
       </div>
     </div>
 
     <div class="section-label">2 months</div>
     <div class="vax-group">
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">Pentavalent · 1</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">Pentavalent · 1</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date Pentavalent 1 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark Pentavalent 1 as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">OPV · 1</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">OPV · 1</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date OPV 1 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark OPV 1 as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">fIPV · 1</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">fIPV · 1</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date fIPV 1 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark fIPV 1 as given"></button>
       </div>
     </div>
 
     <div class="section-label">4 months</div>
     <div class="vax-group">
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">Pentavalent · 2</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">Pentavalent · 2</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date Pentavalent 2 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark Pentavalent 2 as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">OPV · 2</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">OPV · 2</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date OPV 2 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark OPV 2 as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">fIPV · 2</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">fIPV · 2</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date fIPV 2 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark fIPV 2 as given"></button>
       </div>
     </div>
 
     <div class="section-label">6 months</div>
     <div class="vax-group">
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">Pentavalent · 3</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">Pentavalent · 3</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date Pentavalent 3 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark Pentavalent 3 as given"></button>
       </div>
       <div class="vax-row">
-        <span class="vax-dot"><span></span></span>
-        <span class="vax-main"><span class="vax-name">OPV · 3</span></span>
-        <span class="status upcoming">Upcoming</span>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--outline-variant)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="vax-main">
+          <span class="vax-name">OPV · 3</span>
+          <span class="vax-date">
+            <span class="vax-date-label">Given on</span>
+            <input class="vax-date-input" type="text" placeholder="Select date" aria-label="Date OPV 3 was given">
+          </span>
+        </span>
+        <button class="switch" type="button" aria-label="Mark OPV 3 as given"></button>
       </div>
     </div>
 

@@ -185,6 +185,10 @@ h2.title {
 
 .card + .card { margin-top: 16px; }
 
+/* Cards laid out in a grid get their spacing from the gap, not a stacking margin. */
+.metric-row .card + .card,
+.stat-row .card + .card { margin-top: 0; }
+
 /* ---------- Onboarding ---------- */
 
 .brand {
@@ -205,6 +209,13 @@ h2.title {
   border-radius: 20px;
   color: var(--primary);
   box-shadow: 0 1px 3px rgba(25, 28, 29, 0.08);
+}
+
+/* The logo art sits inside its own padding, so it is sized larger than its box. */
+.logo-img {
+  display: block;
+  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 .brand-name {
@@ -330,10 +341,28 @@ h2.title {
   cursor: pointer;
 }
 
+/* Boy and girl each carry their own tint, applied to the whole Add baby screen. */
+.screen.is-boy { --baby: #2f7cc4; --baby-container: #cfe3f7; }
+.screen.is-girl { --baby: #cc4a85; --baby-container: #fbdcea; }
+
 .gender-option.is-selected {
-  background: var(--primary-container);
+  background: var(--baby-container, var(--primary-container));
   color: var(--on-surface);
 }
+
+.gender-option.is-selected svg { color: var(--baby, var(--primary)); }
+
+.is-boy .photo-picker,
+.is-girl .photo-picker {
+  border-color: var(--baby);
+  color: var(--baby);
+}
+
+.is-boy .switch.is-on,
+.is-girl .switch.is-on { background: var(--baby); }
+
+.is-boy .input:focus,
+.is-girl .input:focus { border-color: var(--baby); }
 
 .input.is-focused { border-width: 1.5px; border-color: var(--on-surface); }
 
@@ -677,14 +706,28 @@ h2.title {
 .step-number {
   min-width: 76px;
   padding: 8px 14px;
+  border: 0;
   background: var(--surface-container-high);
   border-radius: var(--radius-sm);
+  font-family: inherit;
   font-size: 22px;
   font-weight: 600;
+  color: var(--on-surface);
   text-align: center;
 }
 
+input.step-number { width: 96px; }
+
+input.step-number:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
 .step-unit { font-size: 15px; color: var(--on-surface-variant); }
+
+/* Growth stacks three steppers, so they run slightly tighter. */
+.stepper.tight { margin-top: 8px; }
+.stepper.tight .step-btn { width: 48px; height: 48px; font-size: 24px; }
 
 .timer-row {
   display: flex;
@@ -768,14 +811,30 @@ h2.title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  align-items: stretch;
 }
+
+.metric-row.three { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.metric-row.three .card { padding: 14px 10px; }
+.metric-row.three .metric-value { font-size: 22px; }
+.metric-row.three .metric-unit { font-size: 13px; }
+
+.metric-card {
+  border: 1.5px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.metric-card.is-active { border-color: var(--primary-container); }
 
 .metric-value {
   margin-top: 6px;
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.5px;
+  white-space: nowrap;
 }
+
+.is-hidden { display: none; }
 
 .metric-unit { font-size: 16px; font-weight: 500; color: var(--on-surface-variant); }
 
@@ -890,8 +949,43 @@ h2.title {
 .vax-dot.is-given { background: #2f9e5c; color: #fff; }
 
 .vax-main { flex: 1; }
-.vax-name { font-size: 17px; font-weight: 600; }
+.vax-name { display: block; font-size: 17px; font-weight: 600; }
 .vax-sub { margin-top: 2px; font-size: 14px; color: var(--on-surface-variant); }
+
+.vax-row.is-given { background: #f1f7f6; }
+
+.vax-note {
+  display: block;
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--on-surface-variant);
+}
+
+.vax-row.is-given .vax-note { display: none; }
+
+.vax-date {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.vax-row.is-given .vax-date { display: flex; }
+
+.vax-date-label { font-size: 13px; color: var(--on-surface-variant); }
+
+.vax-date-input {
+  width: 132px;
+  padding: 7px 10px;
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-sm);
+  background: var(--surface-container-lowest);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--on-surface);
+}
+
+.vax-date-input:focus { outline: none; border-color: var(--primary); }
 
 .status {
   padding: 4px 10px;

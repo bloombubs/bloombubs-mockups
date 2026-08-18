@@ -32,17 +32,34 @@
         <div class="label-caps">Date</div>
         <input class="input" type="text" value="Aug 16, 2026">
       </div>
-      <div class="field">
-        <div class="label-caps">Weight (g)</div>
-        <input class="input" type="text" placeholder="e.g. 5200">
+      <div class="label-caps" style="margin-top:18px">Weight (kg)</div>
+      <div class="stepper tight" data-step="0.1" data-max="30">
+        <button class="step-btn" style="background:var(--growth)">−</button>
+        <div class="step-value">
+          <input class="step-number" type="text" inputmode="decimal" value="0.0" aria-label="Weight in kilograms">
+          <span class="step-unit">kg</span>
+        </div>
+        <button class="step-btn" style="background:var(--growth)">+</button>
       </div>
-      <div class="field">
-        <div class="label-caps">Height (cm)</div>
-        <input class="input" type="text" placeholder="e.g. 58">
+
+      <div class="label-caps" style="margin-top:18px">Height (cm)</div>
+      <div class="stepper tight" data-step="0.1" data-max="150">
+        <button class="step-btn" style="background:var(--growth)">−</button>
+        <div class="step-value">
+          <input class="step-number" type="text" inputmode="decimal" value="0.0" aria-label="Height in centimetres">
+          <span class="step-unit">cm</span>
+        </div>
+        <button class="step-btn" style="background:var(--growth)">+</button>
       </div>
-      <div class="field">
-        <div class="label-caps">Head circumference (cm)</div>
-        <input class="input" type="text" placeholder="e.g. 39">
+
+      <div class="label-caps" style="margin-top:18px">Head circumference (cm)</div>
+      <div class="stepper tight" data-step="0.1" data-max="60">
+        <button class="step-btn" style="background:var(--growth)">−</button>
+        <div class="step-value">
+          <input class="step-number" type="text" inputmode="decimal" value="0.0" aria-label="Head circumference in centimetres">
+          <span class="step-unit">cm</span>
+        </div>
+        <button class="step-btn" style="background:var(--growth)">+</button>
       </div>
     </div>
   </div>

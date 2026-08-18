@@ -17,6 +17,7 @@ to GitHub Pages.
 | `assets/site.css` | Gallery and walkthrough chrome (phone frame, layout) |
 | `assets/screens.js` | Screen manifest shared by the gallery and walkthrough |
 | `assets/interactions.js` | Makes the controls behave — timers, steppers, toggles, Save |
+| `assets/logo.png` | Bloombubs mark, copied from `bloombubs-parent-app/assets/icon.png` |
 
 The mockups are clickable: buttons, back arrows, quick actions and the bottom tabs all
 navigate to the matching screen, so the client can click through the flow.

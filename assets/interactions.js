@@ -195,7 +195,35 @@
           .querySelectorAll('.pill, .gender-option')
           .forEach((other) => other.classList.remove('is-selected'));
         if (!(optional && wasSelected)) option.classList.add('is-selected');
+
+        // Boy / girl retints the screen.
+        if (option.dataset.theme) {
+          const screen = document.querySelector('.screen');
+          screen.classList.remove('is-boy', 'is-girl');
+          screen.classList.add('is-' + option.dataset.theme);
+        }
         notifyChange();
+      });
+    });
+  }
+
+  // Growth chart tabs: the segmented bar swaps the chart and highlights its metric card.
+  function setUpSegments() {
+    const bar = document.querySelector('.segmented');
+    if (!bar) return;
+
+    bar.addEventListener('click', (event) => {
+      const segment = event.target.closest('.segment');
+      if (!segment || !segment.dataset.panel) return;
+      const key = segment.dataset.panel;
+
+      bar.querySelectorAll('.segment').forEach((other) => other.classList.remove('is-active'));
+      segment.classList.add('is-active');
+      document.querySelectorAll('.card [data-panel]').forEach((panel) => {
+        panel.classList.toggle('is-hidden', panel.dataset.panel !== key);
+      });
+      document.querySelectorAll('.metric-card').forEach((card) => {
+        card.classList.toggle('is-active', card.dataset.metric === key);
       });
     });
   }
@@ -203,7 +231,12 @@
   // Switches, tap-to-explain rows and the name character counter.
   function setUpExtras() {
     document.querySelectorAll('.switch').forEach((sw) => {
-      sw.addEventListener('click', () => sw.classList.toggle('is-on'));
+      sw.addEventListener('click', () => {
+        sw.classList.toggle('is-on');
+        // An immunisation row follows its switch, revealing the date field.
+        const row = sw.closest('.vax-row');
+        if (row) row.classList.toggle('is-given', sw.classList.contains('is-on'));
+      });
     });
 
     document.querySelectorAll('[data-toast]').forEach((el) => {
@@ -245,9 +278,30 @@
     return heading.textContent.trim().split(/\s+/)[0].toLowerCase();
   }
 
+  // A stepper's value lives in a span (whole numbers) or an editable input (decimals).
+  function readStep(stepper) {
+    const out = stepper.querySelector('.step-number');
+    if (!out) return 0;
+    const raw = out.tagName === 'INPUT' ? out.value : out.textContent;
+    return Number(String(raw).trim()) || 0;
+  }
+
+  function writeStep(stepper, value) {
+    const out = stepper.querySelector('.step-number');
+    if (!out) return;
+    const decimals = (String(stepper.dataset.step || '').split('.')[1] || '').length;
+    const text = value.toFixed(decimals);
+    if (out.tagName === 'INPUT') out.value = text;
+    else out.textContent = text;
+  }
+
   function stepperValue() {
-    const out = document.querySelector('.stepper .step-number');
-    return out ? Number(out.textContent) || 0 : 0;
+    const first = document.querySelector('.stepper');
+    return first ? readStep(first) : 0;
+  }
+
+  function anyStepperValue() {
+    return Array.from(document.querySelectorAll('.stepper')).some((stepper) => readStep(stepper) > 0);
   }
 
   function timerTotal() {
@@ -276,11 +330,20 @@
       stepper.querySelectorAll('.step-btn').forEach((btn) => {
         const direction = btn.textContent.trim() === '+' ? 1 : -1;
         btn.addEventListener('click', () => {
-          const next = Number(out.textContent) + direction * step;
-          out.textContent = Math.min(max, Math.max(0, next));
+          const next = readStep(stepper) + direction * step;
+          writeStep(stepper, Math.min(max, Math.max(0, next)));
           notifyChange();
         });
       });
+
+      // Typed values are accepted as-is, then tidied up and clamped on the way out.
+      if (out.tagName === 'INPUT') {
+        out.addEventListener('input', notifyChange);
+        out.addEventListener('blur', () => {
+          writeStep(stepper, Math.min(max, Math.max(0, readStep(stepper))));
+          notifyChange();
+        });
+      }
     });
   }
 
@@ -379,6 +442,15 @@
       const slept = timers[0] ? timers[0].seconds : 0;
       return { summary: (pills[0] || 'Nap') + ' · ' + durationLabel(slept) };
     }
+    if (type === 'growth') {
+      const parts = [];
+      document.querySelectorAll('.stepper').forEach((stepper) => {
+        const value = readStep(stepper);
+        const unit = stepper.querySelector('.step-unit');
+        if (value > 0) parts.push(value + (unit ? ' ' + unit.textContent.trim() : ''));
+      });
+      return { summary: parts.join(' · ') };
+    }
     const first = filledInputs()[0];
     return { summary: first ? first.value.trim() : 'Logged' };
   }
@@ -395,7 +467,7 @@
     const alwaysReady = saveBtn && !saveBtn.classList.contains('is-disabled');
 
     function hasData() {
-      return stepperValue() > 0 || timerTotal() > 0 || filledInputs().length > 0;
+      return anyStepperValue() || timerTotal() > 0 || filledInputs().length > 0;
     }
 
     function refreshSave() {
@@ -470,6 +542,7 @@
   setUpGatedButton();
   setUpHome();
   setUpChoiceGroups();
+  setUpSegments();
   setUpSteppers();
   setUpTimers();
   setUpExtras();

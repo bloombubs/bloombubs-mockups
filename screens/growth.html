@@ -18,21 +18,25 @@
   </div>
 
   <div class="screen-body" style="padding-bottom:100px">
-    <div class="metric-row">
-      <div class="card" style="padding:18px">
+    <div class="metric-row three">
+      <div class="card metric-card is-active" data-metric="weight">
         <div class="label-caps">Weight</div>
-        <div class="metric-value">2.0 <span class="metric-unit">kg</span></div>
+        <div class="metric-value">4.8 <span class="metric-unit">kg</span></div>
       </div>
-      <div class="card" style="padding:18px">
+      <div class="card metric-card" data-metric="height">
         <div class="label-caps">Height</div>
-        <div class="metric-value">80 <span class="metric-unit">cm</span></div>
+        <div class="metric-value">58 <span class="metric-unit">cm</span></div>
+      </div>
+      <div class="card metric-card" data-metric="head">
+        <div class="label-caps">Head</div>
+        <div class="metric-value">39 <span class="metric-unit">cm</span></div>
       </div>
     </div>
 
     <div class="segmented">
-      <button class="segment is-active">Weight</button>
-      <button class="segment">Height</button>
-      <button class="segment">Head</button>
+      <button class="segment is-active" data-panel="weight">Weight</button>
+      <button class="segment" data-panel="height">Height</button>
+      <button class="segment" data-panel="head">Head</button>
     </div>
 
     <div class="card">
@@ -41,38 +45,116 @@
         <span class="card-head-note">WHO + SL Standard</span>
       </div>
 
-      <svg viewBox="0 0 340 200" width="100%" height="190" role="img" aria-label="Weight growth curve chart">
-        <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979">
-          <text x="34" y="14" text-anchor="end">kg</text>
-          <text x="34" y="24">9.8</text>
-          <text x="34" y="74">7.2</text>
-          <text x="34" y="124">4.6</text>
-          <text x="34" y="174">2.0</text>
-        </g>
-        <g stroke="#e1e3e4" stroke-width="1">
-          <line x1="40" y1="20" x2="330" y2="20"/>
-          <line x1="40" y1="70" x2="330" y2="70"/>
-          <line x1="40" y1="120" x2="330" y2="120"/>
-          <line x1="40" y1="170" x2="330" y2="170"/>
-        </g>
+      <div data-panel="weight">
+        <svg viewBox="0 0 340 200" width="100%" height="190" role="img" aria-label="Weight for age chart">
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979">
+            <text x="34" y="14" text-anchor="end">kg</text>
+            <text x="34" y="24">9.8</text>
+            <text x="34" y="74">7.2</text>
+            <text x="34" y="124">4.6</text>
+            <text x="34" y="174">2.0</text>
+          </g>
+          <g stroke="#e1e3e4" stroke-width="1">
+            <line x1="40" y1="20" x2="330" y2="20"/>
+            <line x1="40" y1="70" x2="330" y2="70"/>
+            <line x1="40" y1="120" x2="330" y2="120"/>
+            <line x1="40" y1="170" x2="330" y2="170"/>
+          </g>
 
-        <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26
-                 L320,78 C300,80 260,86 229,93 C205,98 170,108 137,118 C105,128 80,142 45,160 Z"
-              fill="#e9eaeb" opacity="0.85"/>
-        <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26"
-              fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
-        <path d="M45,160 C80,142 105,128 137,118 C170,108 205,98 229,93 C260,86 300,80 320,78"
-              fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+          <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26
+                   L320,78 C300,80 260,86 229,93 C205,98 170,108 137,118 C105,128 80,142 45,160 Z"
+                fill="#e9eaeb" opacity="0.85"/>
+          <path d="M45,133 C80,105 105,92 137,81 C170,68 200,57 229,49 C260,40 295,31 320,26"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+          <path d="M45,160 C80,142 105,128 137,118 C170,108 205,98 229,93 C260,86 300,80 320,78"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
 
-        <circle cx="47" cy="167" r="5" fill="#c0392b"/>
+          <path d="M45,160 C70,146 95,133 120,124" fill="none" stroke="var(--growth)" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="45" cy="160" r="4" fill="var(--growth)"/>
+          <circle cx="120" cy="124" r="5" fill="var(--growth)"/>
 
-        <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979" text-anchor="middle">
-          <text x="45" y="190">0mo</text>
-          <text x="137" y="190">2mo</text>
-          <text x="229" y="190">4mo</text>
-          <text x="320" y="190">6mo</text>
-        </g>
-      </svg>
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979" text-anchor="middle">
+            <text x="45" y="190">0mo</text>
+            <text x="137" y="190">2mo</text>
+            <text x="229" y="190">4mo</text>
+            <text x="320" y="190">6mo</text>
+          </g>
+        </svg>
+      </div>
+
+      <div data-panel="height" class="is-hidden">
+        <svg viewBox="0 0 340 200" width="100%" height="190" role="img" aria-label="Height for age chart">
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979">
+            <text x="34" y="14" text-anchor="end">cm</text>
+            <text x="34" y="24">70</text>
+            <text x="34" y="74">62</text>
+            <text x="34" y="124">54</text>
+            <text x="34" y="174">46</text>
+          </g>
+          <g stroke="#e1e3e4" stroke-width="1">
+            <line x1="40" y1="20" x2="330" y2="20"/>
+            <line x1="40" y1="70" x2="330" y2="70"/>
+            <line x1="40" y1="120" x2="330" y2="120"/>
+            <line x1="40" y1="170" x2="330" y2="170"/>
+          </g>
+
+          <path d="M45,138 C80,112 105,98 137,86 C170,73 200,62 229,53 C260,44 295,34 320,28
+                   L320,74 C300,78 260,84 229,90 C205,96 170,105 137,115 C105,125 80,138 45,158 Z"
+                fill="#e9eaeb" opacity="0.85"/>
+          <path d="M45,138 C80,112 105,98 137,86 C170,73 200,62 229,53 C260,44 295,34 320,28"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+          <path d="M45,158 C80,138 105,125 137,115 C170,105 205,96 229,90 C260,84 300,78 320,74"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+          <path d="M45,150 C70,138 95,126 120,117" fill="none" stroke="var(--growth)" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="45" cy="150" r="4" fill="var(--growth)"/>
+          <circle cx="120" cy="117" r="5" fill="var(--growth)"/>
+
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979" text-anchor="middle">
+            <text x="45" y="190">0mo</text>
+            <text x="137" y="190">2mo</text>
+            <text x="229" y="190">4mo</text>
+            <text x="320" y="190">6mo</text>
+          </g>
+        </svg>
+      </div>
+
+      <div data-panel="head" class="is-hidden">
+        <svg viewBox="0 0 340 200" width="100%" height="190" role="img" aria-label="Head circumference for age chart">
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979">
+            <text x="34" y="14" text-anchor="end">cm</text>
+            <text x="34" y="24">45</text>
+            <text x="34" y="74">41</text>
+            <text x="34" y="124">37</text>
+            <text x="34" y="174">33</text>
+          </g>
+          <g stroke="#e1e3e4" stroke-width="1">
+            <line x1="40" y1="20" x2="330" y2="20"/>
+            <line x1="40" y1="70" x2="330" y2="70"/>
+            <line x1="40" y1="120" x2="330" y2="120"/>
+            <line x1="40" y1="170" x2="330" y2="170"/>
+          </g>
+
+          <path d="M45,130 C80,104 105,90 137,79 C170,67 200,58 229,51 C260,44 295,37 320,33
+                   L320,79 C300,82 260,88 229,93 C205,98 170,107 137,116 C105,126 80,140 45,152 Z"
+                fill="#e9eaeb" opacity="0.85"/>
+          <path d="M45,130 C80,104 105,90 137,79 C170,67 200,58 229,51 C260,44 295,37 320,33"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+          <path d="M45,152 C80,140 105,126 137,116 C170,107 205,98 229,93 C260,88 300,82 320,79"
+                fill="none" stroke="#9aa1a1" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+          <path d="M45,146 C70,134 95,124 120,116" fill="none" stroke="var(--growth)" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="45" cy="146" r="4" fill="var(--growth)"/>
+          <circle cx="120" cy="116" r="5" fill="var(--growth)"/>
+
+          <g font-family="Plus Jakarta Sans, sans-serif" font-size="10" fill="#707979" text-anchor="middle">
+            <text x="45" y="190">0mo</text>
+            <text x="137" y="190">2mo</text>
+            <text x="229" y="190">4mo</text>
+            <text x="320" y="190">6mo</text>
+          </g>
+        </svg>
+      </div>
     </div>
 
     <div class="tint-card teal" style="margin-top:16px">
