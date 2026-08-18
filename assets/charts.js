@@ -9,12 +9,13 @@
   'use strict';
 
   // Zone fills, taken from the printed CHDR weight-for-age chart.
+  // The form's hues, lightened so the chart sits comfortably on a white card.
   const ZONE = {
-    high: '#d3cae4', // above +2SD — high weight
-    normal: '#abd6a4', // +2SD to -1SD — normal
-    risk: '#dcefd8', // -1SD to -2SD — at risk of low weight
-    moderate: '#eb9a3a', // -2SD to -3SD — moderately low
-    severe: '#dd2f24', // below -3SD — severely low
+    high: '#e7e1f2', // above +2SD — high weight
+    normal: '#cfe8ca', // +2SD to -1SD — normal
+    risk: '#edf7ea', // -1SD to -2SD — at risk of low weight
+    moderate: '#f8d5a6', // -2SD to -3SD — moderately low
+    severe: '#f7bdb9', // below -3SD — severely low
   };
 
   const LINE_MEDIAN = '#1f5c3a';

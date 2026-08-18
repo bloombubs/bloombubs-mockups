@@ -88,31 +88,6 @@
     <h1 class="headline">Good evening, Siro</h1>
     <p class="body-md" style="font-size:17px">Here's Siro's day — Day 10</p>
 
-    <div class="card" style="display:flex;align-items:center;justify-content:space-between;margin-top:18px">
-      <div>
-        <div class="stat-value" data-last="breastfeed">8h ago</div>
-        <div class="stat-label" data-last-detail="breastfeed">Left · 1m</div>
-      </div>
-      <span class="ring">
-        <svg viewBox="0 0 48 48" width="52" height="52" fill="none">
-          <circle cx="24" cy="24" r="21" stroke="var(--surface-container-high)" stroke-width="3"/>
-          <circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="132" stroke-dashoffset="99" transform="rotate(-90 24 24)"/>
-          <path d="M24 16.5 20.6 20.8a4.4 4.4 0 1 0 6.8 0z" fill="currentColor"/>
-        </svg>
-      </span>
-    </div>
-
-    <div class="stat-row">
-      <div class="card">
-        <div class="stat-value plain" data-total="bottle">—</div>
-        <div class="stat-label">Total today</div>
-      </div>
-      <div class="card">
-        <div class="stat-value" style="font-size:24px" data-last="diaper">8h 2m ago</div>
-        <div class="stat-label" data-last-detail="diaper">Wet</div>
-      </div>
-    </div>
-
     <div class="day-row">
       <span class="day-label">Today, Tue, 18 Aug</span>
       <span class="day-icons">
@@ -179,7 +154,7 @@
     </details>
 
     <div class="card entry-card" data-entries>
-      <div class="entry">
+      <a class="entry" href="log-breastfeed.html">
         <span class="entry-icon" style="background:var(--breastfeed-bg);color:var(--breastfeed)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 21s-8-4.9-8-10.2A4.8 4.8 0 0 1 12 7a4.8 4.8 0 0 1 8 3.8C20 16.1 12 21 12 21z"/></svg>
         </span>
@@ -187,8 +162,9 @@
           <span class="entry-time">09:08</span>
           <span class="entry-detail">8m · Right</span>
         </span>
-      </div>
-      <div class="entry">
+        <svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="entry" href="log-bottle.html">
         <span class="entry-icon" style="background:var(--bottle-bg);color:var(--bottle)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4"/><path d="M11 5h2v2.5l2.2 2.2a3 3 0 0 1 .8 2V19a3 3 0 0 1-3 3h-2a3 3 0 0 1-3-3V11.7a3 3 0 0 1 .8-2L11 7.5z"/></svg>
         </span>
@@ -196,8 +172,9 @@
           <span class="entry-time">08:30</span>
           <span class="entry-detail">15 ml · Formula</span>
         </span>
-      </div>
-      <div class="entry">
+        <svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="entry" href="log-diaper.html">
         <span class="entry-icon" style="background:var(--diaper-bg);color:var(--diaper)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2.7 6.9 9.2A7 7 0 1 0 17.1 9.2z"/></svg>
         </span>
@@ -205,8 +182,9 @@
           <span class="entry-time">07:05</span>
           <span class="entry-detail">Wet</span>
         </span>
-      </div>
-      <div class="entry">
+        <svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="entry" href="log-breastfeed.html">
         <span class="entry-icon" style="background:var(--breastfeed-bg);color:var(--breastfeed)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 21s-8-4.9-8-10.2A4.8 4.8 0 0 1 12 7a4.8 4.8 0 0 1 8 3.8C20 16.1 12 21 12 21z"/></svg>
         </span>
@@ -214,8 +192,9 @@
           <span class="entry-time">06:35</span>
           <span class="entry-detail">12m · Left</span>
         </span>
-      </div>
-      <div class="entry">
+        <svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
+      <a class="entry" href="log-sleep.html">
         <span class="entry-icon" style="background:var(--sleep-bg);color:var(--sleep)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z"/></svg>
         </span>
@@ -223,19 +202,8 @@
           <span class="entry-time">01:00 – 06:30</span>
           <span class="entry-detail">Night · 5h 30m</span>
         </span>
-      </div>
-    </div>
-
-    <div class="card" style="margin-top:16px">
-      <div class="insight">
-        <span class="insight-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a6 6 0 0 0-3.6 10.8c.6.5.9 1.2 1 1.9l.1 1.3h5l.1-1.3c.1-.7.4-1.4 1-1.9A6 6 0 0 0 12 2z"/></svg>
-        </span>
-        <div>
-          <div class="insight-title">Growth Insight</div>
-          <div class="insight-text">Siro has reached the weight goal for the week — developing perfectly on track for this age group.</div>
-        </div>
-      </div>
+        <svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
     </div>
 
     <p class="mock-note">

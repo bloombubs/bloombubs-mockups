@@ -30,6 +30,34 @@
     }
   }
 
+  function saveLog(log) {
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(log.slice(-200)));
+    } catch (err) {
+      /* private mode — the mockup still navigates, it just won't remember */
+    }
+  }
+
+  function replaceEntry(id, changes) {
+    const log = readLog();
+    const index = log.findIndex((entry) => String(entry.at) === String(id));
+    if (index === -1) return;
+    log[index] = Object.assign({}, log[index], changes);
+    saveLog(log);
+  }
+
+  function removeEntry(id) {
+    saveLog(readLog().filter((entry) => String(entry.at) !== String(id)));
+  }
+
+  // The entry the current log screen is editing, if it was opened from a
+  // tap on the Today list.
+  function editingEntry() {
+    const id = new URLSearchParams(location.search).get('edit');
+    if (!id) return null;
+    return readLog().filter((entry) => String(entry.at) === id)[0] || null;
+  }
+
   function lastOf(type) {
     const log = readLog();
     for (let i = log.length - 1; i >= 0; i -= 1) {
@@ -55,6 +83,13 @@
     if (mins < 60) return mins + 'm ago';
     const hrs = Math.floor(mins / 60);
     return hrs + 'h ' + (mins % 60) + 'm ago';
+  }
+
+  function durationSeconds(text) {
+    const hours = /(\d+)h/.exec(text);
+    const mins = /(\d+)m(?!l)/.exec(text);
+    const secs = /(\d+)s/.exec(text);
+    return (hours ? +hours[1] * 3600 : 0) + (mins ? +mins[1] * 60 : 0) + (secs ? +secs[1] : 0);
   }
 
   function durationLabel(secs) {
@@ -176,6 +211,8 @@
 
   const timers = [];
   const changeHooks = [];
+  // Work that has to wait until the controls on the page have been wired up.
+  const afterSetup = [];
 
   function notifyChange() {
     changeHooks.forEach((hook) => hook());
@@ -455,6 +492,70 @@
     return { summary: first ? first.value.trim() : 'Logged' };
   }
 
+  // Put a saved entry back into the controls so it can be changed.
+  function prefill(type, entry) {
+    const summary = entry.summary || '';
+    const steppers = Array.from(document.querySelectorAll('.stepper'));
+
+    if (type === 'growth') {
+      summary.split('·').forEach((part) => {
+        const amount = parseFloat(part);
+        const unit = part.replace(/[\d.\s]/g, '');
+        const target = steppers.filter(
+          (stepper) => (stepper.querySelector('.step-unit') || {}).textContent === unit && readStep(stepper) === 0
+        )[0];
+        if (target && !isNaN(amount)) writeStep(target, amount);
+      });
+    } else if (steppers.length && entry.value) {
+      writeStep(steppers[0], entry.value);
+    }
+
+    document.querySelectorAll('.pill-row').forEach((row) => {
+      row.querySelectorAll('.pill').forEach((pill) => {
+        if (summary.indexOf(pill.textContent.trim()) === -1) return;
+        row.querySelectorAll('.pill').forEach((other) => other.classList.remove('is-selected'));
+        pill.classList.add('is-selected');
+      });
+    });
+
+    const seconds = durationSeconds(summary);
+    if (seconds && timers.length) {
+      const onRight = timers.length > 1 && /right/i.test(summary) && !/both/i.test(summary);
+      if (/both/i.test(summary) && timers.length > 1) {
+        timers[0].seconds = Math.round(seconds / 2);
+        timers[1].seconds = seconds - timers[0].seconds;
+      } else {
+        timers[onRight ? 1 : 0].seconds = seconds;
+      }
+      paintTimers();
+    }
+
+    if (!steppers.length && !timers.length) {
+      const field = Array.from(document.querySelectorAll('.input, .textarea')).filter((el) => !el.value)[0];
+      if (field) field.value = summary;
+    }
+  }
+
+  function setUpEditing(type, entry, saveBtn) {
+    const lastLine = document.querySelector('.detail-last');
+    if (lastLine) lastLine.textContent = 'Editing entry from ' + clockLabel(entry.at);
+
+    if (saveBtn && saveBtn.firstChild && saveBtn.firstChild.nodeType === 3) {
+      saveBtn.firstChild.textContent = '\n      Update\n      ';
+    }
+
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'delete-entry';
+    remove.textContent = 'Delete this entry';
+    remove.addEventListener('click', () => {
+      removeEntry(entry.at);
+      location.href = 'home.html?deleted=' + type;
+    });
+    const body = document.querySelector('.screen-body');
+    if (body) body.appendChild(remove);
+  }
+
   function setUpLogScreen() {
     const type = screenType();
     if (!type) return;
@@ -480,10 +581,17 @@
       el.addEventListener('input', notifyChange);
     });
 
-    // Show when this activity was really last logged in the demo.
-    const lastLine = document.querySelector('.detail-last');
-    const previous = lastOf(type);
-    if (lastLine && previous) lastLine.textContent = 'Last: ' + agoLabel(previous.at);
+    const editing = editingEntry();
+    if (editing) {
+      // The timers do not exist yet, so filling the controls waits its turn.
+      afterSetup.push(() => prefill(type, editing));
+      setUpEditing(type, editing, saveBtn);
+    } else {
+      // Show when this activity was really last logged in the demo.
+      const lastLine = document.querySelector('.detail-last');
+      const previous = lastOf(type);
+      if (lastLine && previous) lastLine.textContent = 'Last: ' + agoLabel(previous.at);
+    }
 
     if (saveBtn) {
       saveBtn.addEventListener('click', (event) => {
@@ -493,6 +601,11 @@
           return;
         }
         const built = summaryFor(type);
+        if (editing) {
+          replaceEntry(editing.at, { summary: built.summary, value: built.value || 0 });
+          location.href = 'home.html?updated=' + type;
+          return;
+        }
         writeEntry({ type: type, at: Date.now(), summary: built.summary, value: built.value || 0 });
         location.href = 'home.html?saved=' + type;
       });
@@ -553,12 +666,29 @@
 
     if (track) {
       track.querySelectorAll('.tl-mark').forEach((mark) => mark.remove());
+      track.querySelectorAll('.tl-span').forEach((span) => span.remove());
       entries.forEach((entry) => {
+        const colour = (visuals[entry.type] || {}).colour || 'var(--primary)';
+        const label = (visuals[entry.type] || {}).label || entry.type;
+        const slept = entry.type === 'sleep' ? durationSeconds(entry.summary || '') : 0;
+
+        // Sleep covers a stretch of the day, everything else is a moment.
+        if (slept > 0) {
+          const span = document.createElement('span');
+          span.className = 'tl-span';
+          span.style.left = dayPercent(entry.at - slept * 1000) + '%';
+          span.style.width = (slept / 86400) * 100 + '%';
+          span.style.background = colour;
+          span.title = label;
+          track.insertBefore(span, now);
+          return;
+        }
+
         const mark = document.createElement('span');
         mark.className = 'tl-mark';
         mark.style.left = dayPercent(entry.at) + '%';
-        mark.style.background = (visuals[entry.type] || {}).colour || 'var(--primary)';
-        mark.title = (visuals[entry.type] || {}).label || entry.type;
+        mark.style.background = colour;
+        mark.title = label;
         track.insertBefore(mark, now);
       });
     }
@@ -588,28 +718,49 @@
 
     const list = document.querySelector('[data-entries]');
     if (list) {
+      const chevron =
+        '<svg class="entry-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" ' +
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
       list.innerHTML = entries
         .slice()
         .reverse()
         .slice(0, 8)
         .map((entry) => {
           const visual = visuals[entry.type] || { style: '', icon: '', label: entry.type };
+          // Tapping an entry reopens its log screen with the values filled in.
           return (
-            '<div class="entry">' +
+            '<a class="entry" href="log-' + entry.type + '.html?edit=' + entry.at + '">' +
             '<span class="entry-icon" style="' + visual.style + '">' + visual.icon + '</span>' +
             '<span class="entry-main">' +
             '<span class="entry-time">' + clockLabel(entry.at) + '</span>' +
             '<span class="entry-detail">' + (entry.summary || visual.label) + '</span>' +
             '</span>' +
-            '</div>'
+            chevron +
+            '</a>'
           );
         })
         .join('');
     }
   }
 
+  // A day's worth of sample entries, so the Today list is populated — and every
+  // entry on it opens for editing — before anything has been logged by hand.
+  function seedSampleDay() {
+    const minute = 60000;
+    const now = Date.now();
+    saveLog([
+      { type: 'sleep', at: now - 480 * minute, summary: 'Night · 5h 30m', value: 0 },
+      { type: 'breastfeed', at: now - 180 * minute, summary: 'Left · 12m', value: 0 },
+      { type: 'diaper', at: now - 150 * minute, summary: 'Wet', value: 0 },
+      { type: 'bottle', at: now - 90 * minute, summary: '15 ml · Formula', value: 15 },
+      { type: 'breastfeed', at: now - 25 * minute, summary: 'Right · 8m', value: 0 },
+    ]);
+  }
+
   function setUpHome() {
     if (!document.querySelector('.quick-row')) return;
+
+    if (!readLog().length) seedSampleDay();
 
     document.querySelectorAll('[data-last]').forEach((el) => {
       const entry = lastOf(el.dataset.last);
@@ -637,11 +788,13 @@
 
     paintDay();
 
-    const saved = new URLSearchParams(location.search).get('saved');
-    if (saved) {
-      toast(saved.charAt(0).toUpperCase() + saved.slice(1) + ' saved');
+    const params = new URLSearchParams(location.search);
+    ['saved', 'updated', 'deleted'].forEach((action) => {
+      const type = params.get(action);
+      if (!type) return;
+      toast(type.charAt(0).toUpperCase() + type.slice(1) + ' ' + action);
       history.replaceState(null, '', 'home.html');
-    }
+    });
   }
 
   setUpQuickRow();
@@ -653,5 +806,6 @@
   setUpSteppers();
   setUpTimers();
   setUpExtras();
+  afterSetup.forEach((task) => task());
   notifyChange();
 })();

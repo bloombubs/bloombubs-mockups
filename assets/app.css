@@ -715,7 +715,28 @@ h2.title {
   align-items: center;
   gap: 12px;
   padding: 14px 0;
+  cursor: pointer;
 }
+
+.entry:active { background: var(--surface-container-low); }
+.entry-chevron { flex: 0 0 auto; color: var(--outline-variant); }
+
+.delete-entry {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--error);
+  cursor: pointer;
+}
+
+.delete-entry:active { background: #fbe6e5; }
 
 .entry + .entry { border-top: 1px solid var(--surface-container); }
 
