@@ -17,6 +17,7 @@ to GitHub Pages.
 | `assets/site.css` | Gallery and walkthrough chrome (phone frame, layout) |
 | `assets/screens.js` | Screen manifest shared by the gallery and walkthrough |
 | `assets/interactions.js` | Makes the controls behave — timers, steppers, toggles, Save |
+| `assets/charts.js` | Draws the growth charts on the Sri Lanka CHDR colour bands |
 | `assets/logo.png` | Bloombubs mark, copied from `bloombubs-parent-app/assets/icon.png` |
 
 The mockups are clickable: buttons, back arrows, quick actions and the bottom tabs all
@@ -29,7 +30,8 @@ shown back on the Today screen — "Reset demo data" there clears it.
 ## Parent app — screens covered
 
 - **Onboarding** — language selection, phone number entry, parent profile, add baby
-- **Home** — Today dashboard with quick actions, latest activity and insight
+- **Home** — Today dashboard with quick actions, latest activity, a 24-hour
+  timeline of the day, the day summary dropdown and the logged-activity list
 - **Quick logging** — breastfeed, bottle, diaper, sleep, solids, pumping, growth,
   symptom, milestone, note
 - **Development** — development menu, growth chart, immunisation schedule

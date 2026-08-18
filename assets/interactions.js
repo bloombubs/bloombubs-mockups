@@ -503,6 +503,111 @@
 
   /* ---------- Today screen ---------- */
 
+  function entriesToday() {
+    const midnight = new Date();
+    midnight.setHours(0, 0, 0, 0);
+    return readLog().filter((entry) => entry.at >= midnight.getTime());
+  }
+
+  // The quick action row already carries an icon and colour per activity, so the
+  // timeline and lists borrow them instead of repeating the markup.
+  function activityVisuals() {
+    const visuals = {};
+    document.querySelectorAll('.quick').forEach((link) => {
+      const key = (link.getAttribute('href') || '').replace('log-', '').replace('.html', '');
+      const circle = link.querySelector('.quick-circle');
+      if (!circle) return;
+      const style = circle.getAttribute('style') || '';
+      visuals[key] = {
+        style: style,
+        colour: (style.match(/color:\s*([^;]+)/) || [])[1] || 'var(--primary)',
+        icon: circle.innerHTML,
+        label: link.querySelector('.quick-label').textContent.trim(),
+      };
+    });
+    return visuals;
+  }
+
+  function dayPercent(timestamp) {
+    const when = new Date(timestamp);
+    return ((when.getHours() * 60 + when.getMinutes()) / 1440) * 100;
+  }
+
+  function clockLabel(timestamp) {
+    const when = new Date(timestamp);
+    return String(when.getHours()).padStart(2, '0') + ':' + String(when.getMinutes()).padStart(2, '0');
+  }
+
+  // Redraw the timeline, the day summary and the entry list from what has been logged.
+  function paintDay() {
+    const entries = entriesToday();
+    // With nothing logged the screen keeps its sample day, which is a coherent
+    // snapshot — the live "now" line would not line up with it.
+    if (!entries.length) return;
+
+    const track = document.querySelector('.tl-track');
+    const now = document.querySelector('.tl-now');
+    if (now) now.style.left = dayPercent(Date.now()) + '%';
+
+    const visuals = activityVisuals();
+
+    if (track) {
+      track.querySelectorAll('.tl-mark').forEach((mark) => mark.remove());
+      entries.forEach((entry) => {
+        const mark = document.createElement('span');
+        mark.className = 'tl-mark';
+        mark.style.left = dayPercent(entry.at) + '%';
+        mark.style.background = (visuals[entry.type] || {}).colour || 'var(--primary)';
+        mark.title = (visuals[entry.type] || {}).label || entry.type;
+        track.insertBefore(mark, now);
+      });
+    }
+
+    const summary = document.querySelector('[data-summary]');
+    if (summary) {
+      const grouped = {};
+      entries.forEach((entry) => {
+        if (!grouped[entry.type]) grouped[entry.type] = { count: 0, details: [] };
+        grouped[entry.type].count += 1;
+        if (entry.summary) grouped[entry.type].details.push(entry.summary);
+      });
+      summary.innerHTML = Object.keys(grouped)
+        .map((type) => {
+          const visual = visuals[type] || { style: '', icon: '' };
+          const group = grouped[type];
+          return (
+            '<div class="summary-row">' +
+            '<span class="summary-dot" style="' + visual.style + '">' + visual.icon + '</span>' +
+            '<span class="summary-count">' + group.count + '</span>' +
+            '<span class="summary-detail">' + (group.details.join(' · ') || visual.label || type) + '</span>' +
+            '</div>'
+          );
+        })
+        .join('');
+    }
+
+    const list = document.querySelector('[data-entries]');
+    if (list) {
+      list.innerHTML = entries
+        .slice()
+        .reverse()
+        .slice(0, 8)
+        .map((entry) => {
+          const visual = visuals[entry.type] || { style: '', icon: '', label: entry.type };
+          return (
+            '<div class="entry">' +
+            '<span class="entry-icon" style="' + visual.style + '">' + visual.icon + '</span>' +
+            '<span class="entry-main">' +
+            '<span class="entry-time">' + clockLabel(entry.at) + '</span>' +
+            '<span class="entry-detail">' + (entry.summary || visual.label) + '</span>' +
+            '</span>' +
+            '</div>'
+          );
+        })
+        .join('');
+    }
+  }
+
   function setUpHome() {
     if (!document.querySelector('.quick-row')) return;
 
@@ -529,6 +634,8 @@
         location.href = 'home.html';
       });
     }
+
+    paintDay();
 
     const saved = new URLSearchParams(location.search).get('saved');
     if (saved) {
