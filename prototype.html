@@ -89,7 +89,19 @@ function build() {
   });
 
   show(start);
+  stampBuild(nav);
 }
+
+// A visible stamp of how many screens this build knows about, so a reviewer can
+// tell at a glance whether the page they are looking at is the current one.
+function stampBuild(target) {
+  const total = SCREEN_GROUPS.reduce((sum, group) => sum + group.screens.length, 0);
+  const el = document.createElement('div');
+  el.className = 'build-stamp';
+  el.textContent = total + ' screens · loaded ' + new Date().toLocaleTimeString();
+  target.appendChild(el);
+}
+
 // The loader runs last, so build() is defined before the manifest can finish.
 const VERSION = '?v=' + Date.now();
 const manifest = document.createElement('script');

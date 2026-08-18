@@ -50,11 +50,17 @@ Token values live in `:root` in `assets/app.css` — change them there and every
 
 ## Running locally
 
-Open `index.html` in a browser, or serve the folder:
-
 ```bash
-python -m http.server 8080
+python serve.py
 ```
+
+Then open http://localhost:8080/index.html. `serve.py` sends no-store headers, so
+a refresh always shows the current mockup — `python -m http.server` lets browsers
+hold on to old copies, which during review looks like a change that never landed.
+
+The gallery and walkthrough show a build stamp ("19 screens · loaded 21:20") under
+the header. If the screen count looks wrong, the page itself came from cache —
+hard-refresh with Ctrl+Shift+R.
 
 ## Adding a screen
 

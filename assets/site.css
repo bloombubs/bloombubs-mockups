@@ -230,3 +230,10 @@ a { color: inherit; text-decoration: none; }
   .viewer-side { flex: 1 1 auto; width: 100%; max-width: 390px; }
   .device { transform: scale(0.85); transform-origin: top center; }
 }
+
+.build-stamp {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  color: #8b9192;
+}
