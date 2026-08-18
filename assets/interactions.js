@@ -265,6 +265,25 @@
     });
   }
 
+  // The account screen's ⋮ menu, dismissed by tapping anywhere off it.
+  function setUpMenu() {
+    const toggle = document.querySelector('[data-menu-toggle]');
+    const menu = document.querySelector('[data-menu]');
+    const scrim = document.querySelector('[data-menu-scrim]');
+    if (!toggle || !menu) return;
+
+    function show(open) {
+      menu.hidden = !open;
+      if (scrim) scrim.hidden = !open;
+    }
+
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      show(menu.hidden);
+    });
+    if (scrim) scrim.addEventListener('click', () => show(false));
+  }
+
   // Switches, tap-to-explain rows and the name character counter.
   function setUpExtras() {
     document.querySelectorAll('.switch').forEach((sw) => {
@@ -806,6 +825,7 @@
   setUpSteppers();
   setUpTimers();
   setUpExtras();
+  setUpMenu();
   afterSetup.forEach((task) => task());
   notifyChange();
 })();

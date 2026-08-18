@@ -43,6 +43,13 @@ const SCREEN_GROUPS = [
       { id: 'immunisation', title: 'Immunisation', note: 'Sri Lanka national vaccination schedule.' },
     ],
   },
+  {
+    id: 'account',
+    title: 'Account',
+    screens: [
+      { id: 'account', title: 'Account', note: 'Profile, the babies on the account, and sign out.' },
+    ],
+  },
 ];
 
 const SCREEN_INDEX = {};

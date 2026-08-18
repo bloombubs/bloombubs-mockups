@@ -35,6 +35,7 @@ shown back on the Today screen — "Reset demo data" there clears it.
 - **Quick logging** — breastfeed, bottle, diaper, sleep, solids, pumping, growth,
   symptom, milestone, note
 - **Development** — development menu, growth chart, immunisation schedule
+- **Account** — profile, babies on the account, edit and sign out
 
 ## Styling
 
